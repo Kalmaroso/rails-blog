@@ -1,0 +1,10 @@
+<h2>Write a comment</h2>
+
+<%= form_for(:comments, url: "/comments", method: "POST") do |f| %>
+  <%= f.hidden_field :post_id, value: params[:id] %>
+  <%= f.label :body %>
+  <%= f.text_area :body %>
+  <br />
+  <br />
+  <%= f.submit "Submit post" %>
+<% end %>

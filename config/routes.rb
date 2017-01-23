@@ -3,10 +3,10 @@ Rails.application.routes.draw do
 
   resources :posts
 
-  get "/comments/new", to: "comments#new"
+  get "posts/:id/comments/new", to: "comments#new"
   post "/comments", to: "comments#create"
   get "comments/:id/edit", to: "comments#edit"
-  put "comments/:id", to: "comments#update"
+  patch "comments/:id", to: "comments#update"
   delete "comments/:id", to: "comments#destroy"
 
   post "/votes", to: "votes#create"

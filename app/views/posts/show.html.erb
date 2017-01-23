@@ -9,10 +9,27 @@
   -<%= @author.username %>
 </p>
 
-
-
 <% if current_user_id == @author.id %>
-<%= link_to "Edit", edit_post_path %>
-<%= link_to "Delete", "/posts/#{@post.id}", method: "DELETE" %>
+  <%= link_to "Edit", edit_post_path %>
+  <%= link_to "Delete", "/posts/#{@post.id}", method: "DELETE" %>
+<% end %>
 
+<ul>
+  <% @comments.each do |comment| %>
+    <li>
+      <%= comment.body %>
+      --<%= comment.user.username %>
+      <% if current_user == comment.user%>
+        <br />
+        <br />
+        <%= link_to "Edit", "/comments/#{comment.id}/edit" %>
+        <%= link_to "Delete", "/comments/#{comment.id}", method: "DELETE" %>
+        <br />
+        <br />
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+<% if user? %>
+  <%=link_to "Add comment","/posts/#{@post.id}/comments/new" %>
 <% end %>
