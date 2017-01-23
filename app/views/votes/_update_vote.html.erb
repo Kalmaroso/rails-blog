@@ -1,0 +1,4 @@
+<%= form_for(:votes, url: "/votes/#{id}", method: "PATCH") do |f| %>
+<%= f.hidden_field :value, value: value %>
+<%= f.submit sign %>
+<% end %>

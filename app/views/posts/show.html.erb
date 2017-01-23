@@ -1,5 +1,17 @@
 <h3><%=@post.title %></h3>
-
+<% if vote?(@post,1) %>
+  <%= vote_counter(@post) %>
+  <%= render partial: "votes/update_vote.html", locals: {value: -1,  id: user_vote(@post).id, sign: "V"} %>
+<% elsif vote?(@post,-1)%>
+  <%= render partial: "votes/update_vote.html", locals: {value: 1,  id: user_vote(@post).id, sign: "^"} %>
+  <%= vote_counter(@post) %>
+<% elsif user? %>
+  <%= render partial: "votes/vote_buttons", locals: {value: 1, type: @post.class, id: @post.id, sign: "^"} %>
+  <%= vote_counter(@post) %>
+  <%= render partial: "votes/vote_buttons", locals: {value: -1, type: @post.class, id: @post.id, sign: "V"} %>
+<% else %>
+<%= vote_counter(@post) %>
+<% end %>
 
 <p>
   <%=@post.body  %>
@@ -14,10 +26,29 @@
   <%= link_to "Delete", "/posts/#{@post.id}", method: "DELETE" %>
 <% end %>
 
-<ul>
-  <% @comments.each do |comment| %>
-    <li>
-      <%= comment.body %>
+
+<h4>Comments:</h4>
+
+  <% sort_by_votes(@comments).each do |comment| %>
+
+      <% if vote?(comment,1) %>
+        <%= vote_counter(comment) %>
+          <%= comment.body %>
+        <%= render partial: "votes/update_vote.html", locals: {value: -1,  id: user_vote(comment).id, sign: "V"} %>
+      <% elsif vote?(comment,-1)%>
+        <%= render partial: "votes/update_vote.html", locals: {value: 1,  id: user_vote(comment).id, sign: "^"} %>
+        <%= vote_counter(comment) %>
+          <%= comment.body %>
+      <% elsif user? %>
+        <%= render partial: "votes/vote_buttons", locals: {value: 1, type: comment.class, id: comment.id, sign: "^"} %>
+        <%= vote_counter(comment) %>
+          <%= comment.body %>
+        <%= render partial: "votes/vote_buttons", locals: {value: -1, type: comment.class, id: comment.id, sign: "V"} %>
+      <% else %>
+      <%= vote_counter(comment) %>
+        <%= comment.body %>
+      <% end %>
+      <br />
       --<%= comment.user.username %>
       <% if current_user == comment.user%>
         <br />
@@ -27,9 +58,11 @@
         <br />
         <br />
       <% end %>
-    </li>
+      <br>
+      <br>
+      <br>
   <% end %>
-</ul>
+
 <% if user? %>
   <%=link_to "Add comment","/posts/#{@post.id}/comments/new" %>
 <% end %>

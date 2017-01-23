@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   delete "comments/:id", to: "comments#destroy"
 
   post "/votes", to: "votes#create"
-  put "votes/:id", to: "votes#update"
+  patch "votes/:id", to: "votes#update"
   delete "votes/:id", to: "votes#destroy"
 
   get "/signup", to: "users#new"

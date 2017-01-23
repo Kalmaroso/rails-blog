@@ -1,0 +1,6 @@
+<%= form_for(:votes, url: "/votes", method: "POST") do |f| %>
+<%= f.hidden_field :value, value: value %>
+<%= f.hidden_field :votable_type, value: type %>
+<%= f.hidden_field :votable_id, value: id %>
+<%= f.submit sign %>
+<% end %>

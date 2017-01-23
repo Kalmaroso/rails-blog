@@ -3,10 +3,27 @@
 
 
 <ul>
-<% @posts.each do |post| %>
+<% sort_by_votes(@posts).each do |post| %>
+  <% if vote?(post,1) %>
+    <%= vote_counter(post) %>
+    <%= link_to post.title, post_path(post) %>
+    <%= render partial: "votes/update_vote.html", locals: {value: -1,  id: user_vote(post).id, sign: "V"} %>
+  <% elsif vote?(post,-1)%>
+    <%= render partial: "votes/update_vote.html", locals: {value: 1,  id: user_vote(post).id, sign: "^"} %>
+    <%= vote_counter(post) %>
+    <%= link_to post.title, post_path(post) %>
+  <% elsif user? %>
+    <%= render partial: "votes/vote_buttons", locals: {value: 1, type: post.class, id: post.id, sign: "^"} %>
+    <%= vote_counter(post) %>
+    <%= link_to post.title, post_path(post) %>
+    <%= render partial: "votes/vote_buttons", locals: {value: -1, type: post.class, id: post.id, sign: "V"} %>
+  <% else %>
+  <%= vote_counter(post) %>
   <%= link_to post.title, post_path(post) %>
+  <% end %>
   <br />
   <br />
+
 <% end %>
 
 
