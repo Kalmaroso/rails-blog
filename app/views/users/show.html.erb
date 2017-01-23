@@ -6,8 +6,8 @@
   <% sort_by_votes(@posts).each do |post| %>
     <li>
 
-      <h4><%= link_to post.title, post_path(post) %></h4>
-      <%= vote_counter(post) %>
+      <h4><%= vote_counter(post) %> <%= link_to post.title, post_path(post) %> </h4> 
+
 
       <p>
         <%= post.body  %>
