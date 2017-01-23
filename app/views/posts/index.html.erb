@@ -1,3 +1,23 @@
+
+<h3>Posts!</h3>
+
+
+<ul>
 <% @posts.each do |post| %>
-  <%=post.title %>
+  <%= link_to post.title, post_path(post) %>
+  <br />
+  <br />
+<% end %>
+
+
+</ul>
+
+
+
+<% if user? %>
+  <br />
+  <br />
+  <br />
+  <br />
+  <%=link_to "Create post", new_post_path %>
 <% end %>

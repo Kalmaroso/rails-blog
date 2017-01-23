@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   root to: "posts#index"
-  
+
   resources :posts
 
   get "/comments/new", to: "comments#new"
@@ -13,11 +13,11 @@ Rails.application.routes.draw do
   put "votes/:id", to: "votes#update"
   delete "votes/:id", to: "votes#destroy"
 
-  get "/users/new", to: "users#new"
-  get "/:username", to: "users#show", as: :user
-  post "/users", to: "user#create"
+  get "/signup", to: "users#new"
+  get "/users/:id", to: "users#show", as: :user
+  post "/signup", to: "users#create"
 
   get "/login", to: "sessions#new"
-  post "/sessions/new", to: "sessions#create"
+  post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy"
 end
