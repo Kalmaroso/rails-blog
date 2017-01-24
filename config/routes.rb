@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   delete "votes/:id", to: "votes#destroy"
 
   get "/signup", to: "users#new"
-  get "/users/:id", to: "users#show", as: :user
+  get "users/:username", to: "users#show", as: :user
   post "/signup", to: "users#create"
 
   get "/login", to: "sessions#new"
